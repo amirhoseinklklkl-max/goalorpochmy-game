@@ -6,8 +6,8 @@
     <access origin="*" />
     <allow-navigation href="*" />
     <allow-intent href="*" />
-    <preference name="android-minSdkVersion" value="22" />
-    <preference name="android-targetSdkVersion" value="33" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-targetSdkVersion" value="34" />
     <preference name="MixedContentMode" value="0" />
     <preference name="Fullscreen" value="true" />
     <icon src="images/profile-sheet0.png" />
