@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mygame.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyGame</name>
+<widget id="ir,amir.goalpoch" version="2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/20">
+    <name>گل یا پوچ</name>
     <description>My awesome game</description>
     <content src="index.html" />
     <access origin="*" />
