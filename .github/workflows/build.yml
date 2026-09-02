@@ -15,6 +15,7 @@ jobs:
       - run: npm install -g cordova
       - run: cordova create app com.mygame.app MyGame
       - run: cp config.xml app/config.xml
+      - run: cp -r images app/images
       - run: rm -rf app/www/*
       - run: find . -maxdepth 1 -mindepth 1 ! -name 'app' ! -name '.github' ! -name 'config.xml' ! -name '.git' -exec cp -r {} app/www/ \;
       - run: cd app && cordova plugin add cordova-plugin-whitelist
