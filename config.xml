@@ -18,9 +18,9 @@
     <icon src="images/profile-game.png" density="xxhdpi" />
     <icon src="images/profile-game.png" density="xxxhdpi" />
     <platform name="android">
-        <allow-intent href="market:*" />
-        <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
-            <activity android:name="MainActivity" android:windowSoftInputMode="adjustPan" />
-        </config-file>
-    </platform>
+    <allow-intent href="market:*" />
+    <edit-config target="/manifest/application/activity[@android:name='MainActivity']" file="AndroidManifest.xml" mode="merge">
+        <activity android:windowSoftInputMode="adjustPan" />
+    </edit-config>
+</platform>
 </widget>
