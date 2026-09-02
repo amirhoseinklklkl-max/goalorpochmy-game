@@ -20,7 +20,7 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
-            <activity android:windowSoftInputMode="adjustPan" />
+            <activity android:name="MainActivity" android:windowSoftInputMode="adjustPan" />
         </config-file>
     </platform>
 </widget>
