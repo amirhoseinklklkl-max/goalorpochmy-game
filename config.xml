@@ -33,6 +33,11 @@
         <icon density="hdpi" src="www/icon-114.png" />
         <icon density="xhdpi" src="www/icon-128.png" />
         <icon density="xxhdpi" src="www/icon-256.png" />
+
+        <!-- appcompat 1.6.1 (نسخه پیش‌فرض) با AAPT2 جدید رانرهای گیت‌هاب باگ داره
+             و ارور "Invalid <color> for given resource value" میده.
+             این خط نسخه جدیدتر و سالم رو اجباری می‌کنه. -->
+        <framework src="androidx.appcompat:appcompat:1.7.0" />
     </platform>
 
     <!-- پلاگین تبلیغات ادیوری -->
