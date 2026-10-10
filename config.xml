@@ -1,26 +1,46 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ir.amir.goalpoch" version="2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<widget id="ir.amir.goalpoch" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>گل یا پوچ</name>
-    <description>My awesome game</description>
+    <description>
+        بازی گل یا پوچ
+    </description>
+    <author email="you@example.com" href="https://example.com">
+        Amir
+    </author>
     <content src="index.html" />
+
     <access origin="*" />
-    <allow-navigation href="*" />
-    <allow-intent href="*" />
-    <preference name="android-minSdkVersion" value="21" />
-    <preference name="android-targetSdkVersion" value="34" />
-    <preference name="MixedContentMode" value="0" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+
+    <preference name="Orientation" value="portrait" />
     <preference name="Fullscreen" value="true" />
-    <icon src="images/profile-game.png" />
-    <icon src="images/profile-game.png" density="ldpi" />
-    <icon src="images/profile-game.png" density="mdpi" />
-    <icon src="images/profile-game.png" density="hdpi" />
-    <icon src="images/profile-game.png" density="xhdpi" />
-    <icon src="images/profile-game.png" density="xxhdpi" />
-    <icon src="images/profile-game.png" density="xxxhdpi" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="BackgroundColor" value="0xff000000" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/loading-logo.png" />
+
     <platform name="android">
-    <allow-intent href="market:*" />
-    <edit-config target="/manifest/application/activity[@android:name='MainActivity']" file="AndroidManifest.xml" mode="merge">
-        <activity android:windowSoftInputMode="adjustPan" />
-    </edit-config>
-</platform>
+        <allow-intent href="market:*" />
+        <preference name="android-minSdkVersion" value="22" />
+        <preference name="android-targetSdkVersion" value="33" />
+        <preference name="AndroidXEnabled" value="true" />
+        <icon density="ldpi" src="www/icon-16.png" />
+        <icon density="mdpi" src="www/icon-32.png" />
+        <icon density="hdpi" src="www/icon-114.png" />
+        <icon density="xhdpi" src="www/icon-128.png" />
+        <icon density="xxhdpi" src="www/icon-256.png" />
+    </platform>
+
+    <!-- پلاگین تبلیغات ادیوری -->
+    <plugin name="adivery-cordova" source="npm" />
+
+    <!-- پلاگین‌های پایه کوردوا -->
+    <plugin name="cordova-plugin-whitelist" source="npm" />
+    <plugin name="cordova-plugin-device" source="npm" />
+    <plugin name="cordova-plugin-splashscreen" source="npm" />
+
 </widget>

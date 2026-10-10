@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1787993677,
+	"version": 1791626989,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -114,8 +114,6 @@
 		"images/رباتدغل-sheet0.png",
 		"images/gmail-sheet0.png",
 		"images/gmail-sheet1.png",
-		"images/negar_1738564958143بستن-sheet0.png",
-		"images/فعلاتعطیل-sheet0.png",
 		"images/logout-sheet0.png",
 		"images/بروزرسانی-sheet0.png",
 		"images/راهنما4-sheet0.png",

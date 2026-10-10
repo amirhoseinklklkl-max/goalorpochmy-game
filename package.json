@@ -1,0 +1,21 @@
+{
+  "name": "goalpoch",
+  "displayName": "گل یا پوچ",
+  "version": "1.0.0",
+  "description": "بازی گل یا پوچ - اندروید با Cordova",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no tests\" && exit 0"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "adivery-cordova": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {}
+    }
+  }
+}
