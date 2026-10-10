@@ -13,7 +13,6 @@
     ],
     "plugins": {
       "adivery-cordova": {},
-      "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {}
     }

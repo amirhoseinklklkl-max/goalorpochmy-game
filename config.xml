@@ -49,8 +49,10 @@
     <!-- پلاگین تبلیغات ادیوری -->
     <plugin name="adivery-cordova" source="npm" />
 
-    <!-- پلاگین‌های پایه کوردوا -->
-    <plugin name="cordova-plugin-whitelist" source="npm" />
+    <!-- پلاگین‌های پایه کوردوا
+         نکته: cordova-plugin-whitelist حذف شد - با نسخه‌های جدید cordova-android
+         ناسازگاره (کلاس Whitelist دیگه وجود نداره)، چون این قابلیت الان خودِ
+         هسته cordova-android با همون تگ‌های access/allow-intent بالا انجام میده. -->
     <plugin name="cordova-plugin-device" source="npm" />
     <plugin name="cordova-plugin-splashscreen" source="npm" />
 
