@@ -25,6 +25,9 @@ module.exports = function (context) {
 		'    configurations.all {\n' +
 		'        resolutionStrategy {\n' +
 		"            force 'androidx.appcompat:appcompat:1.7.0'\n" +
+		"            force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'\n" +
+		"            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.24'\n" +
+		"            force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24'\n" +
 		'        }\n' +
 		'    }\n' +
 		'}\n';
