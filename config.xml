@@ -22,6 +22,8 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackgroundColor" value="0xff000000" />
     <preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/loading-logo.png" />
+    <!-- فیکس اصلی باگ "Invalid <color>" - مقدار پیش‌فرض خود Cordova-android نامعتبره (0) -->
+    <preference name="AndroidWindowSplashScreenBackground" value="#000000" />
 
     <platform name="android">
         <allow-intent href="market:*" />
