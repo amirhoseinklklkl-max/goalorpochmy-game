@@ -40,6 +40,9 @@
         <framework src="androidx.appcompat:appcompat:1.7.0" />
     </platform>
 
+    <!-- فیکس قطعی باگ appcompat/AAPT2 - سطح پایین‌تر از framework، همیشه جواب میده -->
+    <hook type="after_prepare" src="hooks/after_prepare/010_fix_appcompat.js" platform="android" />
+
     <!-- پلاگین تبلیغات ادیوری -->
     <plugin name="adivery-cordova" source="npm" />
 
