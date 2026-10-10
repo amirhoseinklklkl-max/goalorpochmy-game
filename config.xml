@@ -26,7 +26,8 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="android-minSdkVersion" value="22" />
-        <preference name="android-targetSdkVersion" value="33" />
+        <preference name="android-targetSdkVersion" value="34" />
+        <preference name="android-compileSdkVersion" value="34" />
         <preference name="AndroidXEnabled" value="true" />
         <icon density="ldpi" src="www/icon-16.png" />
         <icon density="mdpi" src="www/icon-32.png" />
