@@ -20,13 +20,31 @@
 		console.log("[Adivery-Game] " + msg);
 	}
 
+	var diagTickCount = 0;
+
 	function getRuntime() {
-		if (window.cr_getC2Runtime) return window.cr_getC2Runtime();
-		return window.c2runtime || null;
+		try {
+			if (window.cr_getC2Runtime) return window.cr_getC2Runtime();
+			return window.c2runtime || null;
+		} catch (err) {
+			log("خطا در getRuntime: " + err.message);
+			return null;
+		}
 	}
 
 	function getCurrentLayoutName() {
 		var rt = getRuntime();
+
+		// هر ۵ ثانیه یه بار وضعیت کامل رو لاگ کن تا دقیق بفهمیم کجا گیر کرده
+		diagTickCount++;
+		if (diagTickCount % 12 === 0) {
+			log("تشخیص: typeof cr_getC2Runtime=" + (typeof window.cr_getC2Runtime) +
+				" | typeof c2runtime=" + (typeof window.c2runtime) +
+				" | rt=" + (rt ? "موجود" : "null") +
+				" | rt.ya=" + (rt && rt.ya ? "موجود" : "null") +
+				" | rt.ya.fa=" + (rt && rt.ya ? JSON.stringify(rt.ya.fa) : "-"));
+		}
+
 		if (rt && rt.ya && typeof rt.ya.fa === "string") return rt.ya.fa;
 		return null;
 	}
@@ -100,16 +118,24 @@
 
 	function showBanner() {
 		if (!adiveryReady || bannerCreated) return;
-		log("ساخت و نمایش بنر...");
-		Adivery.createBanner(BANNER_ZONE_ID, Adivery.AD_POSITION.BOTTOM_CENTER, Adivery.AD_SIZE.BANNER_SMALL);
-		Adivery.showBanner();
-		bannerCreated = true;
+		try {
+			log("ساخت و نمایش بنر...");
+			Adivery.createBanner(BANNER_ZONE_ID, Adivery.AD_POSITION.BOTTOM_CENTER, Adivery.AD_SIZE.BANNER_SMALL);
+			Adivery.showBanner();
+			bannerCreated = true;
+		} catch (err) {
+			log("خطا در showBanner: " + err.message);
+		}
 	}
 
 	function hideBanner() {
 		if (!adiveryReady || !bannerCreated) return;
-		log("مخفی کردن بنر...");
-		Adivery.hideBanner();
+		try {
+			log("مخفی کردن بنر...");
+			Adivery.hideBanner();
+		} catch (err) {
+			log("خطا در hideBanner: " + err.message);
+		}
 	}
 
 	function showBannerAgain() {
