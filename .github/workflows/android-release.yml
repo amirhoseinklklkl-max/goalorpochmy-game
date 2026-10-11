@@ -1,0 +1,85 @@
+name: Build Android Release APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Java (for Android build)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build www folder from root game files
+        run: |
+          mkdir -p www
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='www' \
+            --exclude='config.xml' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            --exclude='platforms' \
+            --exclude='plugins' \
+            --exclude='node_modules' \
+            ./ www/
+
+      - name: Install Cordova CLI
+        run: npm install -g cordova
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Add android platform
+        run: cordova platform add android
+
+      - name: Add plugins
+        run: |
+          cordova plugin add adivery-cordova
+          cordova plugin add cordova-plugin-device
+          cordova plugin add cordova-plugin-splashscreen
+
+      - name: Decode keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+
+      - name: Create build.json (signing config)
+        run: |
+          cat > build.json << JSON
+          {
+            "android": {
+              "release": {
+                "keystore": "release.keystore",
+                "storePassword": "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}",
+                "alias": "${{ secrets.ANDROID_KEY_ALIAS }}",
+                "password": "${{ secrets.ANDROID_KEY_PASSWORD }}",
+                "keystoreType": "PKCS12"
+              }
+            }
+          }
+          JSON
+
+      - name: Build release APK
+        run: cordova build android --release --buildConfig=build.json
+
+      - name: Remove sensitive files
+        if: always()
+        run: rm -f release.keystore build.json
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: goalpoch-release-apk
+          path: platforms/android/app/build/outputs/apk/release/app-release.apk
