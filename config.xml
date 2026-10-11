@@ -42,11 +42,11 @@
              این خط نسخه جدیدتر و سالم رو اجباری می‌کنه. -->
         <framework src="androidx.appcompat:appcompat:1.7.0" />
 
-        <!-- فیکس باگ جمع‌شدن صفحه بازی موقع باز شدن کیبورد (چت‌روم).
-             پیش‌فرض اندروید (adjustResize) کل WebView رو فشرده می‌کنه؛
-             adjustPan باعث میشه کیبورد روی صفحه بیاد بدون اینکه چیزی جمع بشه. -->
+        <!-- فیکس باگ جمع‌شدن/تغییرشکل صفحه بازی موقع باز شدن کیبورد (چت‌روم).
+             adjustPan جواب نداد (هنوز خود وب‌ویو ریفلو می‌شد). adjustNothing قوی‌تره:
+             کیبورد کاملاً شناور میاد روی صفحه و هیچ تغییری تو اندازه/چینش محتوا اتفاق نمی‌افته. -->
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application/activity">
-            <activity android:windowSoftInputMode="adjustPan" />
+            <activity android:windowSoftInputMode="adjustNothing" />
         </edit-config>
     </platform>
 

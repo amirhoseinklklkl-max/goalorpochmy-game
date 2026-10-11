@@ -15,6 +15,10 @@
 	var bannerCreated  = false;
 	var lastLayoutName = null;
 	var adiveryReady   = false;
+	var gameStartTime  = null;
+
+	var BANNER_START_DELAY_MS   = 5000;   // ۵ ثانیه بعد از باز شدن بازی
+	var BANNER_REFRESH_INTERVAL_MS = 3 * 60 * 1000; // هر ۳ دقیقه رفرش
 
 	function log(msg) {
 		console.log("[Adivery-Game] " + msg);
@@ -178,6 +182,19 @@
 		Adivery.showBanner();
 	}
 
+	// هر ۳ دقیقه یه تبلیغ بنری جدید بگیر (فقط وقتی بنر الان نمایش داده شده و تو لایوت ممنوعه نیستیم)
+	function refreshBanner() {
+		if (!adiveryReady || !bannerCreated) return;
+		if (lastLayoutName === HIDE_BANNER_LAYOUT) return;
+		try {
+			log("رفرش بنر برای تبلیغ جدید...");
+			Adivery.createBanner(BANNER_ZONE_ID, Adivery.AD_POSITION.BOTTOM_CENTER, Adivery.AD_SIZE.BANNER_SMALL);
+			Adivery.showBanner();
+		} catch (err) {
+			log("خطا در refreshBanner: " + err.message);
+		}
+	}
+
 	// هر چند صدم ثانیه چک می‌کنه الان کدوم لایوت در حال اجراست
 	function pollLayout() {
 		var name = getCurrentLayoutName();
@@ -187,16 +204,40 @@
 
 		if (name === HIDE_BANNER_LAYOUT) {
 			hideBanner();
-		} else if (bannerCreated) {
+			return;
+		}
+
+		if (bannerCreated) {
 			showBannerAgain();
-		} else {
+			return;
+		}
+
+		// اولین نمایش بنر: فقط اگه ۵ ثانیه از شروع بازی گذشته باشه
+		var elapsed = Date.now() - gameStartTime;
+		if (elapsed >= BANNER_START_DELAY_MS) {
+			showBanner();
+		}
+		// وگرنه هیچی - تیک‌های بعدی pollLayout دوباره چک می‌کنن
+	}
+
+	// چون ممکنه کاربر تو همون ۵ ثانیه اول تو لایوت غیر از "online game" بمونه
+	// و pollLayout دیگه چیزی صدا نزنه (چون lastLayoutName عوض نشده)، یه چک جدا
+	// فقط برای رعایت تاخیر ۵ ثانیه‌ای لازم داریم:
+	function checkInitialBannerDelay() {
+		if (bannerCreated) return; // قبلاً نمایش داده شده
+		if (lastLayoutName === null || lastLayoutName === HIDE_BANNER_LAYOUT) return;
+		var elapsed = Date.now() - gameStartTime;
+		if (elapsed >= BANNER_START_DELAY_MS) {
 			showBanner();
 		}
 	}
 
 	document.addEventListener("deviceready", function () {
 		log("deviceready اجرا شد");
+		gameStartTime = Date.now();
 		initAdivery();
 		setInterval(pollLayout, 400);
+		setInterval(checkInitialBannerDelay, 500);
+		setInterval(refreshBanner, BANNER_REFRESH_INTERVAL_MS);
 	}, false);
 })();
