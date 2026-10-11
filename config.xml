@@ -41,6 +41,13 @@
              و ارور "Invalid <color> for given resource value" میده.
              این خط نسخه جدیدتر و سالم رو اجباری می‌کنه. -->
         <framework src="androidx.appcompat:appcompat:1.7.0" />
+
+        <!-- فیکس باگ جمع‌شدن صفحه بازی موقع باز شدن کیبورد (چت‌روم).
+             پیش‌فرض اندروید (adjustResize) کل WebView رو فشرده می‌کنه؛
+             adjustPan باعث میشه کیبورد روی صفحه بیاد بدون اینکه چیزی جمع بشه. -->
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application/activity">
+            <activity android:windowSoftInputMode="adjustPan" />
+        </edit-config>
     </platform>
 
     <!-- فیکس قطعی باگ appcompat/AAPT2 - سطح پایین‌تر از framework، همیشه جواب میده -->
