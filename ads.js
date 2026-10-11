@@ -32,20 +32,55 @@
 		}
 	}
 
+	// نام‌های واقعی لایوت‌های بازی (برای مچ کردن با فیلد درست روی rt.ya)
+	var KNOWN_LAYOUT_NAMES = ["load", "menu", "shop", "game", "2nafare", "binabin",
+		"chatroom", "hesab", "گنجینه", "بازارسیاه", "rahnama", "4dast", "6dast",
+		"onlinmenusheet", "online game", "gameonloneshet"];
+
+	var foundNameKey = null; // وقتی پیدا شد، دیگه هر بار اسکن نمی‌کنیم
+
+	function scanForNameKey(ya) {
+		var keys = Object.keys(ya);
+		for (var i = 0; i < keys.length; i++) {
+			var k = keys[i];
+			var v = ya[k];
+			if (typeof v === "string" && KNOWN_LAYOUT_NAMES.indexOf(v) !== -1) {
+				return k;
+			}
+		}
+		return null;
+	}
+
 	function getCurrentLayoutName() {
 		var rt = getRuntime();
-
-		// هر ۵ ثانیه یه بار وضعیت کامل رو لاگ کن تا دقیق بفهمیم کجا گیر کرده
 		diagTickCount++;
-		if (diagTickCount % 12 === 0) {
-			log("تشخیص: typeof cr_getC2Runtime=" + (typeof window.cr_getC2Runtime) +
-				" | typeof c2runtime=" + (typeof window.c2runtime) +
-				" | rt=" + (rt ? "موجود" : "null") +
-				" | rt.ya=" + (rt && rt.ya ? "موجود" : "null") +
-				" | rt.ya.fa=" + (rt && rt.ya ? JSON.stringify(rt.ya.fa) : "-"));
+
+		if (!rt || !rt.ya) {
+			if (diagTickCount % 12 === 0) {
+				log("تشخیص: rt=" + (rt ? "موجود" : "null") + " | rt.ya=" + (rt && rt.ya ? "موجود" : "null"));
+			}
+			return null;
 		}
 
-		if (rt && rt.ya && typeof rt.ya.fa === "string") return rt.ya.fa;
+		if (foundNameKey === null) {
+			foundNameKey = scanForNameKey(rt.ya) || false;
+			if (foundNameKey) {
+				log("فیلد اسم لایوت پیدا شد: rt.ya." + foundNameKey);
+			} else if (diagTickCount % 12 === 0) {
+				// همه‌ی فیلدهای رشته‌ای رو چاپ کن تا دستی پیدا کنیم
+				var keys = Object.keys(rt.ya);
+				var strFields = [];
+				for (var i = 0; i < keys.length; i++) {
+					if (typeof rt.ya[keys[i]] === "string") {
+						strFields.push(keys[i] + "=" + JSON.stringify(rt.ya[keys[i]]));
+					}
+				}
+				log("فیلد اسم پیدا نشد. فیلدهای رشته‌ای rt.ya: " + strFields.join(" | "));
+				log("همه‌ی کلیدهای rt.ya: " + keys.join(","));
+			}
+		}
+
+		if (foundNameKey) return rt.ya[foundNameKey];
 		return null;
 	}
 
