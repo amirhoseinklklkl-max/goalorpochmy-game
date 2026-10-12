@@ -67,14 +67,15 @@ jobs:
                 "storePassword": "${{ secrets.ANDROID_KEYSTORE_PASSWORD }}",
                 "alias": "${{ secrets.ANDROID_KEY_ALIAS }}",
                 "password": "${{ secrets.ANDROID_KEY_PASSWORD }}",
-                "keystoreType": "PKCS12"
+                "keystoreType": "PKCS12",
+                "packageType": "apk"
               }
             }
           }
           JSON
 
       - name: Build release APK
-        run: cordova build android --release --packageType=apk --buildConfig=build.json
+        run: cordova build android --release --buildConfig=build.json -- --packageType=apk
 
       - name: Remove sensitive files
         if: always()
@@ -89,3 +90,11 @@ jobs:
         with:
           name: goalpoch-release-apk
           path: platforms/android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: warn
+
+      - name: Upload release AAB (fallback, in case APK wasn't produced)
+        uses: actions/upload-artifact@v4
+        with:
+          name: goalpoch-release-aab
+          path: platforms/android/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: ignore
