@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1791649768,
+	"version": 1792653411,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -122,8 +122,6 @@
 		"images/۲دست-sheet1.png",
 		"images/rubika-sheet0.png",
 		"images/menu-sheet0.png",
-		"images/کلیکرویتبلیغ-sheet0.png",
-		"images/sprite9-sheet0.png",
 		"images/belit-sheet0.png",
 		"images/تعدادبلیط-sheet0.png",
 		"images/کارتحفاظت-sheet0.png",
@@ -159,6 +157,9 @@
 		"images/پیامها-sheet1.png",
 		"images/textboxpeer-sheet0.png",
 		"images/textboxhost-sheet0.png",
+		"images/گنجینه-sheet0.png",
+		"images/کیسه-sheet0.png",
+		"images/صندوق-sheet0.png",
 		"media/mediabaz.net-quick-win-video-game-notification-269.ogg",
 		"media/cash register kaching - sound effect.ogg",
 		"icon-16.png",

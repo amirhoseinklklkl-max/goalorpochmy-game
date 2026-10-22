@@ -57,6 +57,12 @@
     <!-- پلاگین تبلیغات ادیوری -->
     <plugin name="adivery-cordova" source="npm" />
 
+    <!-- پلاگین خرید درون‌برنامه‌ای (مایکت) -->
+    <plugin name="cordova-plugin-android-iab" source="npm" />
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+        <uses-permission android:name="ir.mservices.market.BILLING" />
+    </config-file>
+
     <!-- پلاگین‌های پایه کوردوا
          نکته: cordova-plugin-whitelist حذف شد - با نسخه‌های جدید cordova-android
          ناسازگاره (کلاس Whitelist دیگه وجود نداره)، چون این قابلیت الان خودِ

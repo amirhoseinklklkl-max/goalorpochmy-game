@@ -13,6 +13,7 @@
     ],
     "plugins": {
       "adivery-cordova": {},
+      "cordova-plugin-android-iab": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {}
     }

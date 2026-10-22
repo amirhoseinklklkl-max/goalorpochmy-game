@@ -3,9 +3,10 @@
 // بر اساس مستندات رسمی: https://github.com/adivery/adivery-cordova-plugin
 // ===================================================================
 (function () {
-	var APP_ID            = "7ef0f577-941e-4edf-9672-8fab205d73cb";
-	var BANNER_ZONE_ID     = "1cfbc67f-d054-4d09-865b-631118eb78a3";
-	var REWARDED_ZONE_ID   = "87958e35-0cfc-42bb-86d2-874a6d98d696";
+	var APP_ID              = "7ef0f577-941e-4edf-9672-8fab205d73cb";
+	var BANNER_ZONE_ID       = "1cfbc67f-d054-4d09-865b-631118eb78a3";
+	var REWARDED_ZONE_ID     = "87958e35-0cfc-42bb-86d2-874a6d98d696";
+	var COIN_REWARDED_ZONE_ID = "db613541-489f-4920-97b0-980474981668";
 
 	var HIDE_BANNER_LAYOUT = "online game";
 	var BANNER_START_DELAY_MS      = 5000;
@@ -52,8 +53,9 @@
 		return null;
 	}
 
-	// این فلگ رو Construct 2 هر نیم‌ثانیه با Browser.ExecJS چک می‌کنه
+	// این فلگ‌ها رو Construct 2 هر نیم‌ثانیه با Browser.ExecJS چک می‌کنه
 	window.c2_rewardBelit = false;
+	window.c2_rewardCoin = false;
 
 	function extractEventData(e) {
 		if (e && typeof e.originalEvent !== "undefined") e = e.originalEvent;
@@ -68,14 +70,21 @@
 
 		Adivery.initialize(APP_ID);
 		Adivery.prepareRewardedAd(REWARDED_ZONE_ID);
+		Adivery.prepareRewardedAd(COIN_REWARDED_ZONE_ID);
 		adiveryReady = true;
 
 		document.addEventListener("onRewardedAdClosed", function (e) {
 			var data = extractEventData(e);
 			if (data.isRewarded) {
-				window.c2_rewardBelit = true;
+				if (data.placement === COIN_REWARDED_ZONE_ID) {
+					window.c2_rewardCoin = true;
+				} else {
+					// پیش‌فرض: زون بلیط (برای سازگاری با نسخه قبلی که placement نداشت)
+					window.c2_rewardBelit = true;
+				}
 			}
 			Adivery.prepareRewardedAd(REWARDED_ZONE_ID);
+			Adivery.prepareRewardedAd(COIN_REWARDED_ZONE_ID);
 		}, false);
 
 		document.addEventListener("onError", function (e) {
@@ -88,6 +97,13 @@
 	window.showBelitRewardAd = function () {
 		if (typeof Adivery === "undefined") return;
 		Adivery.showAd(REWARDED_ZONE_ID);
+	};
+
+	// این تابع رو از Construct 2 با Execute Javascript صدا بزن:
+	// window.showCoinRewardAd();
+	window.showCoinRewardAd = function () {
+		if (typeof Adivery === "undefined") return;
+		Adivery.showAd(COIN_REWARDED_ZONE_ID);
 	};
 
 	function showBanner() {
