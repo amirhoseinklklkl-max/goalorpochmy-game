@@ -51,6 +51,7 @@ jobs:
       - name: Add plugins
         run: |
           cordova plugin add adivery-cordova
+          cordova plugin add cordova-plugin-android-iab
           cordova plugin add cordova-plugin-device
           cordova plugin add cordova-plugin-splashscreen
 
