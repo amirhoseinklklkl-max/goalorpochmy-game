@@ -54,6 +54,10 @@
     <!-- فیکس قطعی باگ appcompat/AAPT2 - سطح پایین‌تر از framework، همیشه جواب میده -->
     <hook type="after_prepare" src="hooks/after_prepare/010_fix_appcompat.js" platform="android" />
 
+    <!-- فیکس باگ شناخته‌شده cordova-plugin-android-iab: فایل AIDL رو تو مسیر قدیمی
+         می‌ذاره که دیگه توسط Gradle/AGP جدید کامپایل نمیشه. -->
+    <hook type="after_prepare" src="hooks/after_prepare/020_fix_iab_aidl.js" platform="android" />
+
     <!-- پلاگین تبلیغات ادیوری -->
     <plugin name="adivery-cordova" source="npm" />
 
