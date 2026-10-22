@@ -20,6 +20,18 @@ module.exports = function (context) {
 		return;
 	}
 
+	// از AGP 8 به بعد، کامپایل AIDL به‌صورت پیش‌فرض غیرفعاله؛ باید همیشه صریح فعالش کنیم
+	// (این بخش باید حتی اگه فایل aidl از قبل وجود داشت هم اجرا بشه)
+	var gradlePropsPath = path.join(context.opts.projectRoot, 'platforms', 'android', 'gradle.properties');
+	var marker = 'android.defaults.buildfeatures.aidl=true';
+	var existingProps = fs.existsSync(gradlePropsPath) ? fs.readFileSync(gradlePropsPath, 'utf8') : '';
+	if (existingProps.indexOf(marker) === -1) {
+		fs.appendFileSync(gradlePropsPath, '\n' + marker + '\n');
+		console.log('[fix-iab-aidl] فعال‌سازی AIDL buildFeature در gradle.properties انجام شد.');
+	} else {
+		console.log('[fix-iab-aidl] AIDL buildFeature از قبل فعال بود.');
+	}
+
 	if (fs.existsSync(aidlFile)) {
 		console.log('[fix-iab-aidl] فایل aidl از قبل سر جاشه.');
 		return;
