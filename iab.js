@@ -1,13 +1,13 @@
 // ===================================================================
-// خرید درون‌برنامه‌ای مایکت برای بازی "گل یا پوچ"
+// خرید درون‌برنامه‌ای کافه‌بازار برای بازی "گل یا پوچ"
 // با استفاده از cordova-plugin-android-iab
 // ===================================================================
 (function () {
-	var MYKET_PACKAGE = "ir.mservices.market";
-	var MYKET_INTENT  = "ir.mservices.market.InAppBillingService.BIND";
-	var BILLING_KEY   = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAYv7c4feYMlNywSl8Yd2OmlUS2/odPZ8QptkX4jFGyUqs7MXU/oQKO7C/ml6m5h/AflFshHlRbN/qYAVeGWpWD6RMR8pO2p1w+ytW4NoSVNNmJlLQStZfl09S1spvFzGot/uQ0IcF4k8xX6yiEXz3VGai2IMemnscmmghnkng8wIDAQAB";
+	var BAZAAR_PACKAGE = "com.farsitel.bazaar";
+	var BAZAAR_INTENT  = "ir.cafebazaar.pardakht.InAppBillingService.BIND";
+	var BILLING_KEY    = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwDTg6K4fJKJLNZEeS0Pos3YChhDO6rQhxXWo/EsF8IN34bAZppSOp/JXi9RjQk/iH0TbjX2xQlhc/DfWYx5UtY20zdmDNlDVel4mvKcq6dXjOsU62xnfKvJzJ/dPNgf61C08DbwSAMtLht+9xMoCnf/vTBs9gUFqaafj2JFX4yxV7rYzxn9AruQ1L/L3wMojtfVrUEGfJF5hS8eLdcorIESRlHAA8MUmDKCLR1X/T0CAwEAAQ==";
 
-	// شناسه‌های دقیق محصولات (باید عیناً با پنل مایکت یکی باشن)
+	// شناسه‌های دقیق محصولات (باید عیناً با پنل کافه‌بازار یکی باشن)
 	var SKUS = ["seke200", "seke700", "seke1500"];
 
 	var iabReady = false;
@@ -26,8 +26,6 @@
 
 	function onInitSuccess() {
 		iabReady = true;
-		// هر خریدی که قبلاً انجام شده ولی به هر دلیلی consume نشده
-		// رو الان consume کن تا کاربر طلبش جا نمونه و بتونه دوباره بخره
 		inappbilling.getPurchases(function (purchases) {
 			for (var i = 0; i < purchases.length; i++) {
 				consumeProduct(purchases[i].productId);
@@ -62,6 +60,6 @@
 			return;
 		}
 		inappbilling.init(onInitSuccess, onInitError, { showLog: false },
-			MYKET_PACKAGE, MYKET_INTENT, BILLING_KEY, SKUS);
+			BAZAAR_PACKAGE, BAZAAR_INTENT, BILLING_KEY, SKUS);
 	}, false);
 })();

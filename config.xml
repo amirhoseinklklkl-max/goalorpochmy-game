@@ -66,7 +66,7 @@
     <!-- پلاگین خرید درون‌برنامه‌ای (مایکت) -->
     <plugin name="cordova-plugin-android-iab" source="npm" />
     <config-file target="AndroidManifest.xml" parent="/manifest">
-        <uses-permission android:name="ir.mservices.market.BILLING" />
+        <uses-permission android:name="com.farsitel.bazaar.permission.PAY_THROUGH_BAZAAR" />
     </config-file>
 
     <!-- پلاگین‌های پایه کوردوا
