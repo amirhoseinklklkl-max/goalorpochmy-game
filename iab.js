@@ -26,7 +26,7 @@
 
 	function onInitSuccess() {
 		iabReady = true;
-		// هر خریدی که قبلاً انجام شده ولی به هر دلیلی consume نشده (مثلاً برنامه موقع خرید بسته شده)
+		// هر خریدی که قبلاً انجام شده ولی به هر دلیلی consume نشده
 		// رو الان consume کن تا کاربر طلبش جا نمونه و بتونه دوباره بخره
 		inappbilling.getPurchases(function (purchases) {
 			for (var i = 0; i < purchases.length; i++) {
@@ -49,9 +49,7 @@
 			return;
 		}
 		inappbilling.buy(function () {
-			// خرید موفق - فلگ مخصوص همین محصول رو true کن تا Construct 2 بفهمه
 			window["c2_purchase_" + productId] = true;
-			// چون این یه آیتم مصرفی (سکه) هست، بلافاصله consume کن تا قابل خرید مجدد باشه
 			consumeProduct(productId);
 		}, function (err) {
 			logWarn("خرید ناموفق برای " + productId + ": " + JSON.stringify(err));
